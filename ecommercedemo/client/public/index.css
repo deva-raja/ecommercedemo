@@ -1,0 +1,31 @@
+#stock{
+  color: rgb(23, 13, 163);
+  font-size:90%;
+}
+hr.new1{
+
+  border-top: 0px solid rgb(165, 161, 161);   
+}
+#rows-2{
+  color: rgb(131, 130, 129);
+}
+
+#tot{
+  font-weight:bolder ;
+}
+.disc{
+  display: inline;
+}
+small{
+  display: inline-flex;
+}
+.roundbutton{
+ 
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 1px solid rgb(99, 97, 97);
+  
+}
+#qnty{
+  width: 30px;}
