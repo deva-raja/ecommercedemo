@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { deleteProduct, destroyProduct } from '../api/MyProductApi';
 
 function ProductCardComponent({ product, setProductId }) {
-    const handleClick = () => {
+    const hhandleClick = () => {
         setProductId(product._id);
+        destroyProduct(product);
     };
 
 
@@ -11,7 +13,8 @@ function ProductCardComponent({ product, setProductId }) {
         <div>
             <div className='col mb-5'>
                 <div className='card h-100'>
-                    <img className='card-img-top' src={product.img} alt='...' />
+                    <img className='card-img-top' src={product.img} width="50"
+                        height="200" alt='...' />
                     <div className='card-body p-4'>
                         <div className='text-center'>
                             <h5 className='fw-bolder'>{product.name}</h5>
@@ -27,11 +30,12 @@ function ProductCardComponent({ product, setProductId }) {
                         <div className='card-footer p-4 pt-0 border-top-0 bg-transparent'>
                             <div className='text-center'>
                                 <Link
-                                    onClick={handleClick}
+                                    onClick={hhandleClick}
                                     className='btn btn-outline-dark mt-auto'
-                                    to='productItem'
+                                    to='myproduct'
                                 >
                                     Delete Product
+
               </Link>
                             </div>
                         </div>

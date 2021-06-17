@@ -5,6 +5,7 @@ const url = 'http://localhost:5000';
 export async function showSellerProducts(sellerId) {
   try {
     const response = await axios.post(`${url}/product/showAll`, { sellerId });
+    console.log({sellerId})
     return response.data;
   } catch (error) {
     console.log(error);

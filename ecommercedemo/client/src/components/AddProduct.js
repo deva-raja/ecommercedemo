@@ -1,144 +1,88 @@
-import React from 'react';
+import { Field, Form, Formik } from 'formik';
+import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import * as Yup from 'yup';
+import { createProduct } from '../api/MyProductApi';
 
-import { useFormik } from 'formik';
+function AddProduct() {
+    const [serverError, setServerError] = useState();
 
-export default function AddProduct() {
-    const validate = values => {
-
-        const errors = {};
-        if (!values.Name) {
-
-            errors.Name = 'Required';
-
-        } else if (values.Name.length > 15) {
-
-            errors.Name = 'Must be 15 characters or less';
-
-        }
-        if (!values.price) {
-
-            errors.price = 'Required';
-
-        } //else if (values.price.length  5) {
-
-         //   errors.lastName = 'Must be 5 characters or more';
-
-    //    }
-
-        if (!values.img) {
-
-            errors.img = 'Required';
-
-        } else if (values.img.length < 5) {
-
-            errors.img = 'Must be 5 characters or more';
-
-        }
-
-        return errors;
-
-    };
-    const formik = useFormik({
-
-        initialValues: {
-
-            Name: '',
-
-            price: '',
-
-            img: '',
-
-        },
-
-        validate,
-
-        onSubmit: values => {
-
-            alert(JSON.stringify(values, null, 2));
-
-        },
-
+    const createProductSchema = Yup.object().shape({
+        name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+        price: Yup.string().min(0, 'Too Short!').max(5, 'Too Long!').required('Required'),
+        img: Yup.string().min(2, 'Too Short!').max(100, 'Too Long!').required('Required'),
+        sellerId: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+        
     });
+
+    const initialValues = {
+        name: '',
+        price: '',
+        img: '',
+        sellerId: '60c2112f682213cc21289eb8',
+    };
+
+    // sidebar popup toast
+    const openToast = () => {
+        toast.info(' Product added to database ', {
+            className: 'toast-info',
+            autoClose: 2500,
+            hideProgressBar: true,
+        });
+    };
+
+    const onSubmit = async (values, { setSubmitting, resetForm }) => {
+        setSubmitting(true);
+        const data = await createProduct(values);
+
+        if (data.data) {
+            openToast();
+            setSubmitting(false);
+            return resetForm();
+        }
+
+        if (data.error) {
+            setServerError(data);
+            return setSubmitting(false);
+        }
+    };
+
+    
+
     return (
-        <div className="text-center">
-            <h1>Enter Product Details</h1>
-            
+        <div className='container text-center'>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validationSchema={createProductSchema}
+            >
+                {({ errors, touched, isSubmitting, values }) => (
+                    <Form className='form' id='a-form'>
+                        <h2 className='form_title title'>Add Product</h2>
+                        <br /><br />
+                        <Field className='form__input' name='name' placeholder='Name' />
+                        {touched.name && errors.name && <div className='form-error'>{errors.name}</div>}
+                        <br /><br />
+                        <Field className='form__input' name='price' placeholder='0' />
+                        {touched.price && errors.price && <div className='form-error'>{errors.price}</div>}
+                        <br /><br />
+                        <Field className='form__input' name='img' placeholder='image' />
+                        {touched.img && errors.img && <div className='form-error'>{errors.img}</div>}
+                        <br /><br />
 
-<br /><br />
-
-
-
-            <form onSubmit={formik.handleSubmit}>
-
-                <label htmlFor="Name">Product Name</label>
-
-                <input
-
-                    id="Name"
-
-                    name="Name"
-
-                    type="text"
-
-                    onChange={formik.handleChange}
-
-                    onBlur={formik.handleBlur}
-
-                    value={formik.values.Name}
-
-                />
-
-                {formik.errors.Name ? <div>{formik.errors.Name}</div> : null}
-
-                <br /> <br />
-
-                <label htmlFor="price">Price</label>
-
-                <input
-
-                    id="price"
-
-                    name="price"
-
-                    type="text"
-
-                    onChange={formik.handleChange}
-
-                    onBlur={formik.handleBlur}
-
-                    value={formik.values.price}
-
-                />
-
-                {formik.errors.price ? <div>{formik.errors.price}</div> : null}
-
-                <br /> <br />
-
-                <label htmlFor="img">Image Link</label>
-
-                <input
-
-                    id="img"
-
-                    name="img"
-
-                    type="text"
-
-                    onChange={formik.handleChange}
-
-                    onBlur={formik.handleBlur}
-
-                    value={formik.values.img}
-
-                />
-
-                {formik.errors.img ? <div>{formik.errors.img}</div> : null}
-
-                <br /> <br />
-
-                <button type="submit">Submit</button>
-
-            </form>
+                        <button
+                            disabled={isSubmitting}
+                            type='submit'
+                            className='form__button button submit message-button'
+                        >
+                            add
+            </button>
+                    </Form>
+                )}
+            </Formik>
+            <ToastContainer />
         </div>
     );
 }
+
+export default AddProduct;

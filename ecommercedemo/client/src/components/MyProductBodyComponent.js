@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { showSellerProducts } from '../api/ProductApi';
-import ProductCardComponent from './ProductCardComponent';
+import MyProductCardComponent from './MyProductCardComponent';
 import { Link } from 'react-router-dom';
 
 function MyProductBodyComponent({ sellerId, setProductId }) {
     const [productArray, setProductArray] = useState();
-
+    const sellerIdd ="60c2112f682213cc21289eb8";
+    const handleClick = () => {
+    };
     useEffect(() => {
         async function getData() {
-            const product = await showSellerProducts(sellerId);
+            const product = await showSellerProducts(sellerIdd);
             setProductArray(product.product);
         }
         getData();
-    }, [sellerId]);
+    }, [sellerIdd]);
 
     return (
         <div>
@@ -22,13 +24,12 @@ function MyProductBodyComponent({ sellerId, setProductId }) {
 
                         {productArray &&
                             productArray.map((product, index) => (
-                                <ProductCardComponent key={index} product={product} setProductId={setProductId} />
+                                <MyProductCardComponent key={index} product={product} setProductId={setProductId} />
                             ))}
-                    </div>
-                </div>
                 <div className='col mb-5'>
                     <div className='card h-100'>
-                        <img className='card-img-top' src="" alt='...' />
+                        <img className='card-img-top' src="https://cdn.store-assets.com/s/160552/f/5670463.jpeg" width="50"
+                            height="200" alt='...' />
                         <div className='card-body p-4'>
                             <div className='text-center'>
                                 <h5 className='fw-bolder'>New Product</h5>
@@ -44,9 +45,9 @@ function MyProductBodyComponent({ sellerId, setProductId }) {
                             <div className='card-footer p-4 pt-0 border-top-0 bg-transparent'>
                                 <div className='text-center'>
                                     <Link
-                                        //onClick={handleClick}
+                                        onClick={handleClick}
                                         className='btn btn-outline-dark mt-auto'
-                                        to='productItem'
+                                        to='addproduct'
                                     >
                                         Add Product
               </Link>
@@ -54,6 +55,8 @@ function MyProductBodyComponent({ sellerId, setProductId }) {
                             </div>
                         </div>
                     </div>
+                </div>
+                </div>
                 </div>
             </section>
         </div>

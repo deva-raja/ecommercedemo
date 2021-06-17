@@ -2,7 +2,7 @@ import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-//import { loginUser } from '../api/UserApi';
+import { loginUser } from '../api/UserApi';
 
 function SellerLogin({ sellerId }) {
     const [serverError, setServerError] = useState();
@@ -39,7 +39,7 @@ function SellerLogin({ sellerId }) {
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={userSchema}>
                 {({ errors, touched, isSubmitting, values }) => (
                     <Form className='form' id='a-form'>
-                        <h2 className='form_title title' style={{ paddingTop: 25 }}>Customer Login Form</h2>
+                        <h2 className='form_title title' style={{ paddingTop: 25 }}>Seller Login Form</h2>
                         <br />
                         <Field className='form__input' name='email' placeholder='Email' />
                         {serverError && serverError.error && (

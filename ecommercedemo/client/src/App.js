@@ -12,6 +12,7 @@ import Signup from './components/Signup';
 import SellerSignup from './components/SellerSignup';
 import SellerBodyComponent from './components/SellerBodyComponent';
 import SingleProductComponent from './components/SingleProductComponent';
+import SellerLogin from './components/SellerLogin';
 
 function App() {
   const [sellerId, setSellerId] = useState();
@@ -47,7 +48,7 @@ function App() {
             {/* <Login client='SELLER ' /> */}
           </Route>
           <Route exact path='/sellerlogin'>
-            <Login client='SELLER' />
+            <SellerLogin client='SELLER' />
           </Route>
           <Route exact path='/signup'>
             <Signup sellerId={sellerId} />
