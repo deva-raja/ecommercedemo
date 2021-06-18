@@ -39,7 +39,7 @@ function SellerSignup({ sellerId }) {
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={createUserSchema}>
                 {({ errors, touched, isSubmitting, values }) => (
                     <Form className='form' id='a-form'>
-                        <h2 className='form_title title'>Sign up</h2>
+                        <h2 className='form_title title'>Seller Sign up</h2>
                         <br />
                         <br />
                         <Field className='form__input' name='email' placeholder='Email' />

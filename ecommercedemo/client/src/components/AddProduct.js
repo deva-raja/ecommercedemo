@@ -1,10 +1,12 @@
 import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 // import { toast, ToastContainer } from 'react-toastify';
 import * as Yup from 'yup';
 import { createProduct } from '../api/MyProductApi';
 
 function AddProduct() {
+   const history = useHistory();
    const [serverError, setServerError] = useState();
 
    const createProductSchema = Yup.object().shape({
@@ -18,18 +20,18 @@ function AddProduct() {
       name: '',
       price: '',
       img: '',
-      sellerId: '60c2112f682213cc21289eb8',
+      sellerId: '60cc00261b6c13c15737a020',
    };
-
-   // sidebar popup toast
 
    const onSubmit = async (values, { setSubmitting, resetForm }) => {
       setSubmitting(true);
       const data = await createProduct(values);
+      console.log({ data });
 
       if (data.data) {
          setSubmitting(false);
-         return resetForm();
+         resetForm();
+         return history.push('/myproduct');
       }
 
       if (data.error) {
@@ -54,7 +56,7 @@ function AddProduct() {
                   {touched.name && errors.name && <div className='form-error'>{errors.name}</div>}
                   <br />
                   <br />
-                  <Field className='form__input' name='price' placeholder='0' />
+                  <Field className='form__input' name='price' placeholder='Price' />
                   {touched.price && errors.price && (
                      <div className='form-error'>{errors.price}</div>
                   )}
@@ -72,6 +74,7 @@ function AddProduct() {
                   >
                      add
                   </button>
+                  {serverError && <div>{serverError}</div>}
                </Form>
             )}
          </Formik>

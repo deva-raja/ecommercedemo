@@ -51,19 +51,23 @@ function NavbarComponent({ setCartProducts, cartProducts }) {
                         About
                      </Link>
                   </li>
+                  {page === 'user' && (
+                     <li className='nav-item'>
+                        <Link className='nav-link' to='/seller'>
+                           Sellers
+                        </Link>
+                     </li>
+                  )}
+                  {page === 'user' && (
+                     <li className='nav-item'>
+                        <Link className='nav-link' to='/product'>
+                           Product
+                        </Link>
+                     </li>
+                  )}
                   <li className='nav-item'>
-                     <Link className='nav-link' to='/seller'>
-                        Sellers
-                     </Link>
-                  </li>
-                  <li className='nav-item'>
-                     <Link className='nav-link' to='/product'>
-                        Product
-                     </Link>
-                  </li>
-                  <li className='nav-item'>
-                     <Link className='nav-link' to='/login'>
-                        login
+                     <Link className='nav-link' to='/myproduct'>
+                        My product
                      </Link>
                   </li>
 
@@ -71,7 +75,7 @@ function NavbarComponent({ setCartProducts, cartProducts }) {
                   {page === 'user' && (
                      <li className='nav-item'>
                         <Link className='nav-link' to='/' onClick={handleLogout}>
-                           log out
+                           LOG OUT
                         </Link>
                      </li>
                   )}
