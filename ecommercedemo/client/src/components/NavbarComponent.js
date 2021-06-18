@@ -65,11 +65,6 @@ function NavbarComponent({ setCartProducts, cartProducts }) {
                         </Link>
                      </li>
                   )}
-                  <li className='nav-item'>
-                     <Link className='nav-link' to='/myproduct'>
-                        My product
-                     </Link>
-                  </li>
 
                   {/* conditionally check if to display logout or not  */}
                   {page === 'user' && (
