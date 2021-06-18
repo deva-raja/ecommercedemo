@@ -21,7 +21,7 @@ app.use(urlencoded({ extended: true }));
 // database connection
 mongoose
   .connect(
-    'mongodb+srv://vinu:vinu123@cluster0.qxwlj.mongodb.net/shopcart?retryWrites=true&w=majority',
+    'mongodb+srv://rustam:rustam123@cluster0.vd119.mongodb.net/shopcart?retryWrites=true&w=majority',
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
